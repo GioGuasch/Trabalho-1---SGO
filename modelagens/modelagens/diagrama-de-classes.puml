@@ -1,0 +1,61 @@
+@startuml
+
+skinparam nodesep 60
+skinparam ranksep 60
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+
+
+
+class Competicao {
+  - id: UUID
+  - nome: String
+  - modalidade: String
+  - data: Date
+  - horario: Time
+  - local: Local
+  - incricoes: List<Inscricao>
+  + adicionarInscricao(i: Inscricao)
+}
+
+class Local {
+  - id: UUID
+  - nome: String
+  - capacidade: int
+}
+
+class Pais {
+  - id: UUID
+  - nome: String
+  - medalhas: Map<String, int>
+}
+
+class Atleta {
+  - id: UUID
+  - nome: String
+  - idade: int
+  - pais: Pais
+  -competicoes: List<Competicao>
+}
+
+class Inscricao {
+  - atleta: Atleta
+  - competicao: Competicao
+  - dataInscricao: Date
+}
+
+class Resultado {
+- competicao: Competicao
+  - vencedor: Atleta
+  - segundo: Atleta
+  - terceiro: Atleta
+}
+
+Competicao "1" --> "1" Local : ocorre em
+Competicao "1" *-- "*" Inscricao : possui
+Competicao "1" o-- "1" Resultado : gera
+Inscricao "*" --> "1" Atleta
+Atleta "*" --> "1" Pais
+Resultado "1" --> "3" Atleta
+
+@enduml
