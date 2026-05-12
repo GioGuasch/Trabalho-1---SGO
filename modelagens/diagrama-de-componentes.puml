@@ -1,0 +1,32 @@
+@startuml
+
+package "Frontend" {
+
+  component "UI Web" as UI
+}
+
+package "Backend" {
+
+  component "API Gateway" as API
+
+  component "Módulo de Inscrições" as INS
+  component "Módulo de Alocação" as ALOC
+  component "Módulo de Resultados" as RES
+  component "Módulo de Relatórios" as REL
+
+  database "Banco de Dados SGO" as DB
+}
+
+UI --> API : HTTP/REST
+
+API --> INS : REST
+API --> ALOC : REST
+API --> RES : REST
+API --> REL : REST
+
+INS --> DB : CRUD Competicao/Atleta/Inscricao
+ALOC --> DB : CRUD Local/Competicao
+RES --> DB : CRUD Resultado
+REL --> DB : Consulta agregada
+
+@enduml
