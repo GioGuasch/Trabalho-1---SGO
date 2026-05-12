@@ -1,0 +1,109 @@
+@startuml
+
+skinparam nodesep 60
+skinparam ranksep 60
+skinparam linetype ortho
+skinparam packageStyle rectangle
+skinparam classAttributeIconSize 0
+
+package "Apresentação" {
+
+  class CompeticaoController
+  class InscricaoController
+  class LocalController
+  class ResultadoController
+  class RelatorioController
+}
+
+package "Domínio" {
+
+  class Competicao {
+    - id: UUID
+    - nome: String
+    - modalidade: String
+    - data: Date
+    - horario: Time
+    - local: Local
+    - inscricoes: List<Inscricao>
+    + adicionarInscricao(i: Inscricao)
+  }
+
+  class Local {
+    - id: UUID
+    - nome: String
+    - capacidade: int
+  }
+
+  class Pais {
+    - id: UUID
+    - nome: String
+    - medalhas: Map<String, int>
+  }
+
+  class Atleta {
+    - id: UUID
+    - nome: String
+    - idade: int
+    - pais: Pais
+    - competicoes: List<Competicao>
+  }
+
+  class Inscricao {
+    - atleta: Atleta
+    - competicao: Competicao
+    - dataInscricao: Date
+  }
+
+  class Resultado {
+    - competicao: Competicao
+    - vencedor: Atleta
+    - segundo: Atleta
+    - terceiro: Atleta
+  }
+}
+
+package "Persistência" {
+
+  interface CompeticaoRepository
+  interface AtletaRepository
+  interface LocalRepository
+  interface ResultadoRepository
+  interface PaisRepository
+  interface InscricaoRepository
+}
+
+package "Serviços" {
+
+  class CompeticaoService
+  class InscricaoService
+  class AlocacaoService
+  class ResultadoService
+  class RelatorioService
+}
+
+
+Apresentação ..> Serviços
+Serviços ..> Domínio
+Serviços ..> Persistência
+Persistência ..> Domínio
+
+CompeticaoController ..> CompeticaoService
+InscricaoController ..> InscricaoService
+LocalController ..> AlocacaoService
+ResultadoController ..> ResultadoService
+RelatorioController ..> RelatorioService
+
+CompeticaoService ..> CompeticaoRepository
+InscricaoService ..> InscricaoRepository
+AlocacaoService ..> LocalRepository
+ResultadoService ..> ResultadoRepository
+RelatorioService ..> PaisRepository
+
+CompeticaoRepository ..> Competicao
+AtletaRepository ..> Atleta
+LocalRepository ..> Local
+ResultadoRepository ..> Resultado
+PaisRepository ..> Pais
+InscricaoRepository ..> Inscricao
+
+@enduml
