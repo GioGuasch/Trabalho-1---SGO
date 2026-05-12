@@ -1,0 +1,29 @@
+@startuml
+left to right direction
+
+actor Administrador
+actor Atleta
+actor Organizador
+
+rectangle "Sistema de Gestão das Olimpíadas (SGO)" {
+
+  usecase "Cadastrar Competição" as UC1
+  usecase "Inscrever Atleta" as UC2
+  usecase "Alocar Local" as UC3
+  usecase "Registrar Resultados" as UC4
+  usecase "Gerar Relatório de Medalhas" as UC5
+
+  Administrador --> UC1
+  Administrador --> UC4
+  Administrador --> UC5
+
+  Atleta --> UC2
+
+  Organizador --> UC2
+  Organizador --> UC3
+
+  UC4 .> UC5 : <<include>>
+  UC2 .> UC1 : <<extend>>
+}
+
+@enduml
