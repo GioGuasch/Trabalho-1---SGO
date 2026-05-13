@@ -1,0 +1,33 @@
+@startuml
+
+node "Navegador do Usuário" {
+
+  artifact "Web App (HTML/JS)"
+}
+
+node "Servidor de Aplicação\n(App Server)" {
+
+  component "API Gateway"
+  component "SGO Backend"
+}
+
+database "Servidor de Banco de Dados" {
+
+  database "PostgreSQL / MySQL"
+}
+
+cloud "Módulo de Inscrições"
+cloud "Módulo de Alocação"
+cloud "Módulo de Resultados"
+cloud "Módulo de Relatórios"
+
+"Navegador do Usuário" --> "Servidor de Aplicação\n(App Server)" : HTTPS
+
+"Servidor de Aplicação\n(App Server)" --> "Servidor de Banco de Dados" : JDBC / TCP
+
+"Servidor de Aplicação\n(App Server)" ..> "Módulo de Inscrições" : executa
+"Servidor de Aplicação\n(App Server)" ..> "Módulo de Alocação" : executa
+"Servidor de Aplicação\n(App Server)" ..> "Módulo de Resultados" : executa
+"Servidor de Aplicação\n(App Server)" ..> "Módulo de Relatórios" : executa
+
+@enduml
