@@ -30,7 +30,7 @@ Com a realização das Olimpíadas, torna-se necessário um sistema capaz de coo
 2. Um atleta pode participar de várias competições, representando apenas um país em cada modalidade.
 3. Um local só pode sediar uma competição por vez.
 4. Cada resultado registra o vencedor e os atletas classificados em segundo e terceiro lugares.
-5. O sistema deve gerar relatórios com medalhas de ouro, prata e bronze por país. :contentReference[oaicite:1]{index=1}
+5. O sistema deve gerar relatórios com medalhas de ouro, prata e bronze por país.
 
 ---
 
